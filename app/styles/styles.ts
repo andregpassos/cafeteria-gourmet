@@ -3,6 +3,9 @@ import {StyleSheet} from 'react-native';
 export const colors = {
   Gray: '#C2C2C2',
   Brown: '#6E2C00',
+  Black: '#000',
+  White: '#FFF',
+  LightBrown: '#D35400',
 };
 
 export const styles = StyleSheet.create({
@@ -10,14 +13,21 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: colors.White,
+    padding: 20,
   },
   ButtonDefault: {
     backgroundColor: colors.Brown,
     borderRadius: 20,
   },
+  ButtonLight: {
+    backgroundColor: colors.LightBrown,
+    borderRadius: 20,
+  },
   ButtonDefaultContainer: {
     height: 50,
     width: 300,
+    margin: 5,
   },
   ButtonDefaultText: {
     fontWeight: 'bold',
@@ -30,14 +40,15 @@ export const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 2,
     padding: 10,
-    color: '#000',
+    color: colors.Black,
   },
   ImageLogoLoginScreen: {
     width: 300,
     height: 300,
-    marginTop: 100,
+    marginTop: 50,
   },
   Text: {
-    color: '#000',
+    color: colors.LightBrown,
+    fontSize: 25,
   },
 });

@@ -1,7 +1,7 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {Button} from '@rneui/themed';
 import React from 'react';
-import {TextInput, View, Image} from 'react-native';
+import {Image, TextInput, View} from 'react-native';
+import {ClearButton, DefaultButton} from '../../components/Button';
 import {colors, styles} from '../../styles/styles';
 import {RootStackParamList} from '../../types/types';
 
@@ -10,6 +10,9 @@ type NavigationProps = NativeStackScreenProps<RootStackParamList, 'Login'>;
 export default function Login({navigation}: NavigationProps) {
   const [email, onChangeEmail] = React.useState('');
   const [password, onChangePassword] = React.useState('');
+
+  const navigateHome = () => navigation.navigate('Home');
+  const navigateRegister = () => navigation.navigate('Register');
 
   return (
     <View style={{...styles.View, justifyContent: 'space-between'}}>
@@ -35,15 +38,8 @@ export default function Login({navigation}: NavigationProps) {
           secureTextEntry={true}
           keyboardType="numeric"
         />
-        <Button
-          title="Login"
-          loading={false}
-          loadingProps={{size: 'small', color: 'white'}}
-          buttonStyle={styles.ButtonDefault}
-          titleStyle={styles.ButtonDefaultText}
-          containerStyle={styles.ButtonDefaultContainer}
-          onPress={() => navigation.navigate('Home')}
-        />
+        <DefaultButton onPress={navigateHome} title={'Login'} loading={false} />
+        <ClearButton onPress={navigateRegister} title={'Criar conta'} />
       </View>
     </View>
   );
