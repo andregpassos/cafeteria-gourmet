@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StatusBar, StyleSheet} from 'react-native';
 
 export const colors = {
   Gray: '#C2C2C2',
@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.White,
-    padding: 20,
+    paddingTop: StatusBar.currentHeight,
   },
   ButtonDefault: {
     backgroundColor: colors.Brown,
@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
   ImageLogoLoginScreen: {
     width: 300,
     height: 300,
-    marginTop: 50,
+    marginTop: 20,
   },
   Text: {
     color: colors.LightBrown,
