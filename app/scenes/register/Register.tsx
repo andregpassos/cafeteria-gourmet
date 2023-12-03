@@ -18,6 +18,7 @@ import * as yup from 'yup';
 import {DefaultButton} from '../../components/Button';
 import {RadioButton} from 'react-native-paper';
 import DatePicker from 'react-native-date-picker';
+import {READ} from '../../services/CRUD';
 
 type NavigationProps = NativeStackScreenProps<RootStackParamList, 'Register'>;
 
@@ -169,7 +170,7 @@ export default function Register({navigation}: NavigationProps) {
           <Text style={styles.LitteText}>feminino</Text>
         </View>
         <Text style={styles.BigGrayText}>Data de nascimento</Text>
-        <TouchableOpacity onPress={() => setOpen(true)}>
+        <TouchableOpacity onPress={() => READ('name', '==', 'hahaha')}>
           <View
             style={{
               display: 'flex',
