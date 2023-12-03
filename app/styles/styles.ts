@@ -51,4 +51,14 @@ export const styles = StyleSheet.create({
     color: colors.LightBrown,
     fontSize: 25,
   },
+  LitteText: {
+    color: colors.Gray,
+    fontSize: 15,
+  },
+  BigGrayText: {
+    color: colors.Gray,
+    fontSize: 25,
+    alignSelf: 'flex-start',
+    marginLeft: 30,
+  },
 });
