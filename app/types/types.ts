@@ -3,6 +3,7 @@ export type RootStackParamList = {
   Login: undefined;
   Register: undefined;
   CoffeeMenu: undefined;
+  Contact: undefined;
 };
 
 export type ButtonParams = {

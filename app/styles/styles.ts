@@ -71,4 +71,17 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: colors.ClearBrown,
   },
+  PhoneText: {
+    fontSize: 15,
+    color: 'blue',
+    fontWeight: 'bold',
+    marginRight: 10,
+  },
+  TextContact: {
+    alignSelf: 'center',
+    fontSize: 20,
+    color: colors.Brown,
+    marginBottom: 200,
+    fontWeight: 'bold',
+  },
 });

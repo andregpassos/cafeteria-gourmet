@@ -8,6 +8,7 @@ import type {RootStackParamList} from './app/types/types';
 import {colors} from './app/styles/styles';
 import Register from './app/scenes/register/Register';
 import CoffeeMenu from './app/scenes/coffeemenu/CoffeeMenu';
+import Contact from './app/scenes/contact/Contact';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -17,6 +18,14 @@ function App(): JSX.Element {
     StatusBar.setBackgroundColor('rgba(0,0,0,0)');
     StatusBar.setTranslucent(true);
   }
+
+  const optionsStackScreen: any = {
+    headerTintColor: colors.Brown,
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+    headerTitleAlign: 'center',
+  };
 
   return (
     <NavigationContainer>
@@ -29,24 +38,14 @@ function App(): JSX.Element {
         <Stack.Screen
           name="Home"
           component={Home}
-          options={{
-            headerTintColor: colors.Brown,
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerTitleAlign: 'center',
-          }}
+          options={optionsStackScreen}
         />
         <Stack.Screen
           name="Register"
           component={Register}
           options={{
             title: 'Criar conta',
-            headerTintColor: colors.Brown,
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerTitleAlign: 'center',
+            ...optionsStackScreen,
           }}
         />
         <Stack.Screen
@@ -54,11 +53,15 @@ function App(): JSX.Element {
           component={CoffeeMenu}
           options={{
             title: 'Cardápio',
-            headerTintColor: colors.Brown,
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerTitleAlign: 'center',
+            ...optionsStackScreen,
+          }}
+        />
+        <Stack.Screen
+          name="Contact"
+          component={Contact}
+          options={{
+            title: 'Contato',
+            ...optionsStackScreen,
           }}
         />
       </Stack.Navigator>

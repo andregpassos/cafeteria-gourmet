@@ -11,6 +11,7 @@ const welcomeText = 'Olá, Sicrano! Seja bem-vindo à Cafeteria Gourmet!';
 
 export default function Home({navigation}: NavigationProps) {
   const navigateCoffeeMenu = () => navigation.navigate('CoffeeMenu');
+  const navigateContact = () => navigation.navigate('Contact');
 
   return (
     <View style={{...styles.View, justifyContent: 'space-between'}}>
@@ -21,7 +22,11 @@ export default function Home({navigation}: NavigationProps) {
           title={'Cardápio'}
           loading={false}
         />
-        <LightButton onPress={() => {}} title={'Contato'} loading={false} />
+        <LightButton
+          onPress={navigateContact}
+          title={'Contato'}
+          loading={false}
+        />
       </View>
     </View>
   );
