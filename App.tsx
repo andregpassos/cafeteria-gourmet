@@ -7,6 +7,7 @@ import Login from './app/scenes/login/Login';
 import type {RootStackParamList} from './app/types/types';
 import {colors} from './app/styles/styles';
 import Register from './app/scenes/register/Register';
+import CoffeeMenu from './app/scenes/coffeemenu/CoffeeMenu';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -41,6 +42,18 @@ function App(): JSX.Element {
           component={Register}
           options={{
             title: 'Criar conta',
+            headerTintColor: colors.Brown,
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen
+          name="CoffeeMenu"
+          component={CoffeeMenu}
+          options={{
+            title: 'Cardápio',
             headerTintColor: colors.Brown,
             headerTitleStyle: {
               fontWeight: 'bold',

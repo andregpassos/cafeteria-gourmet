@@ -6,6 +6,7 @@ export const colors = {
   Black: '#000',
   White: '#FFF',
   LightBrown: '#D35400',
+  ClearBrown: '#EDBB99',
 };
 
 export const styles = StyleSheet.create({
@@ -14,7 +15,11 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.White,
-    paddingTop: StatusBar.currentHeight,
+    padding: StatusBar.currentHeight,
+  },
+  CoffeMenuView: {
+    flex: 1,
+    backgroundColor: colors.White,
   },
   ButtonDefault: {
     backgroundColor: colors.Brown,
@@ -60,5 +65,10 @@ export const styles = StyleSheet.create({
     fontSize: 25,
     alignSelf: 'flex-start',
     marginLeft: 30,
+  },
+  Card: {
+    padding: 10,
+    marginBottom: 10,
+    backgroundColor: colors.ClearBrown,
   },
 });
