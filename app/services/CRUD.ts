@@ -10,18 +10,26 @@ import {
   where,
 } from 'firebase/firestore';
 import {db} from './FirebaseConfig';
+import {FormProps} from '../scenes/register/Register';
 
-export function CREATE(dataObject: any) {
-  //cria uma tabela com id aleatorio
-  addDoc(collection(db, 'users'), {
-    ...dataObject,
-  })
-    .then(() => {
-      console.log('SQL operation successful!');
+export function CREATE(dataObject: FormProps) {
+  READ('email', '==', dataObject.email)
+    .then(querySnapshot => {
+      // verifica se ja existe o user para aquele email no DB
+      if (querySnapshot.empty) {
+        //adiciona uma entrada no DB com id aleatorio
+        addDoc(collection(db, 'users'), {
+          ...dataObject,
+        })
+          .then(() => {
+            console.log('SQL operation successful!');
+          })
+          .catch(e => {
+            console.error(e);
+          });
+      }
     })
-    .catch(e => {
-      console.error(e);
-    });
+    .catch(e => console.error(e));
 
   //cria uma tabela com id especifico
   /* setDoc(doc(db, 'users', '1'), {
@@ -37,19 +45,37 @@ export function CREATE(dataObject: any) {
       }); */
 }
 
-export function READ(fieldName: string, opStr: WhereFilterOp, value: string) {
-  // read using query
+export async function READ(
+  fieldName: string,
+  opStr: WhereFilterOp,
+  value: string,
+) {
+  const q = query(collection(db, 'users'), where(fieldName, opStr, value));
+  const querySnapshot = await getDocs(q);
+  if (querySnapshot.empty)
+    console.log('Firebase READ(): There are no documents in this query.');
+  else {
+    querySnapshot.forEach(doc => {
+      console.log('docs of querySnapshot');
+      console.log(doc.id, ' => ', doc.data());
+    });
+  }
+
+  return querySnapshot;
+
+  /* // read using query
   getDocs(query(collection(db, 'users'), where(fieldName, opStr, value)))
     .then(usersEntries => {
       const users: {id: string}[] = [];
       usersEntries.forEach(entry => {
         users.push({id: entry.id, ...entry.data()});
+        console.log('SQL operation successful');
       });
       //@ts-ignore
-      console.log(users[0]);
-      return users[0];
+      console.log(users);
+      return users;
     })
-    .catch(e => console.error(e));
+    .catch(e => console.error(e)); */
 
   // read from 1 user, based on id
   /* getDoc(doc(db, 'users', '1'))

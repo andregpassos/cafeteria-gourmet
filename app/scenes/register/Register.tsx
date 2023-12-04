@@ -18,11 +18,19 @@ import * as yup from 'yup';
 import {DefaultButton} from '../../components/Button';
 import {RadioButton} from 'react-native-paper';
 import DatePicker from 'react-native-date-picker';
-import {READ} from '../../services/CRUD';
+import {CREATE, READ} from '../../services/CRUD';
 
 type NavigationProps = NativeStackScreenProps<RootStackParamList, 'Register'>;
-
-const TEXTO = 'TELA DE REGISTRO';
+export type FormProps = {
+  name: string;
+  nickname: string;
+  CPF: string;
+  phone: string;
+  whatsapp: string;
+  CEP: string;
+  email: string;
+  password?: string;
+};
 
 export default function Register({navigation}: NavigationProps) {
   const fieldValidationSchema = yup.object().shape({
@@ -47,57 +55,45 @@ export default function Register({navigation}: NavigationProps) {
     register('password');
   }, [register]);
 
-  const alertCreateAccount = (
-    name: string,
-    nickname: string,
-    CPF: string,
-    phone: string,
-    whatsapp: string,
-    CEP: string,
-    email: string,
-  ) => {
-    const nameString = `Nome: ${name}\n`;
-    const nicknameString = `Apelido: ${nickname}\n`;
-    const CPFString = `CPF: ${CPF}\n`;
-    const phoneString = `Telefone: ${phone}\n`;
-    const whatsappString = `Whatsapp: ${whatsapp}\n`;
-    const CEPString = `CEP: ${CEP}\n`;
-    const emailString = `E-mail: ${email}\n`;
+  const alertCreateAccount = (data: FormProps) => {
     Alert.alert(
       'Conta Criada!',
       'Dados da conta\n\n' +
-        nameString +
-        nicknameString +
-        CPFString +
-        phoneString +
-        whatsappString +
-        CEPString +
-        emailString,
+        `Nome: ${data.name}\n` +
+        `Apelido: ${data.nickname}\n` +
+        `CPF: ${data.CPF}\n` +
+        `Telefone: ${data.phone}\n` +
+        `Whatsapp: ${data.whatsapp}\n` +
+        `CEP: ${data.CEP}\n` +
+        `E-mail: ${data.email}\n`,
     );
   };
 
-  const handleTextChange = (text: string, typeValue: string) => {
+  const handleTextChange = (
+    text: string,
+    typeValue: string,
+    setFunction: Function,
+  ) => {
     setValue(typeValue, text);
-    if (typeValue === 'name') setName(text);
-    if (typeValue === 'nickname') setNickname(text);
-    if (typeValue === 'CPF') setCPF(text);
-    if (typeValue === 'phone') setPhone(text);
-    if (typeValue === 'whatsapp') setWhatsapp(text);
-    if (typeValue === 'CEP') setCEP(text);
-    if (typeValue === 'email') setEmail(text);
-    if (typeValue === 'password') setPassword(text);
+    setFunction();
   };
 
   const onSubmit = (data: any) => {
-    alertCreateAccount(
-      data.name,
-      data.nickname,
-      data.CPF,
-      data.phone,
-      data.whatsapp,
-      data.CEP,
-      data.email,
-    );
+    let shouldStopSubmit = false;
+
+    Object.keys(data).every(key => {
+      if (data[key] == undefined || data[key] == '') {
+        Alert.alert('Erro', 'Preencha todos os campos para criar sua conta!');
+        shouldStopSubmit = true;
+        return false;
+      }
+      return true;
+    });
+
+    if (shouldStopSubmit) return;
+
+    alertCreateAccount(data);
+    CREATE(data);
     setName('');
     setNickname('');
     setCPF('');
@@ -106,6 +102,7 @@ export default function Register({navigation}: NavigationProps) {
     setCEP('');
     setEmail('');
     setPassword('');
+    navigateLogin();
   };
 
   const [name, setName] = useState('');
@@ -126,7 +123,9 @@ export default function Register({navigation}: NavigationProps) {
       <ScrollView>
         <TextInput
           style={styles.Input}
-          onChangeText={text => handleTextChange(text, 'name')}
+          onChangeText={text =>
+            handleTextChange(text, 'name', () => setName(text))
+          }
           value={name}
           placeholder="Nome Completo"
           placeholderTextColor={colors.Gray}
@@ -134,7 +133,9 @@ export default function Register({navigation}: NavigationProps) {
         />
         <TextInput
           style={styles.Input}
-          onChangeText={text => handleTextChange(text, 'nickname')}
+          onChangeText={text =>
+            handleTextChange(text, 'nickname', () => setNickname(text))
+          }
           placeholder="Apelido"
           value={nickname}
           placeholderTextColor={colors.Gray}
@@ -142,7 +143,9 @@ export default function Register({navigation}: NavigationProps) {
         />
         <TextInput
           style={styles.Input}
-          onChangeText={text => handleTextChange(text, 'CPF')}
+          onChangeText={text =>
+            handleTextChange(text, 'CPF', () => setCPF(text))
+          }
           placeholder="CPF"
           value={CPF}
           placeholderTextColor={colors.Gray}
@@ -170,7 +173,7 @@ export default function Register({navigation}: NavigationProps) {
           <Text style={styles.LitteText}>feminino</Text>
         </View>
         <Text style={styles.BigGrayText}>Data de nascimento</Text>
-        <TouchableOpacity onPress={() => READ('name', '==', 'hahaha')}>
+        <TouchableOpacity onPress={() => setOpen(true)}>
           <View
             style={{
               display: 'flex',
@@ -209,7 +212,9 @@ export default function Register({navigation}: NavigationProps) {
         />
         <TextInput
           style={styles.Input}
-          onChangeText={text => handleTextChange(text, 'phone')}
+          onChangeText={text =>
+            handleTextChange(text, 'phone', () => setPhone(text))
+          }
           placeholder="Telefone"
           value={phone}
           placeholderTextColor={colors.Gray}
@@ -217,7 +222,9 @@ export default function Register({navigation}: NavigationProps) {
         />
         <TextInput
           style={styles.Input}
-          onChangeText={text => handleTextChange(text, 'whatsapp')}
+          onChangeText={text =>
+            handleTextChange(text, 'whatsapp', () => setWhatsapp(text))
+          }
           placeholder="Whatsapp"
           value={whatsapp}
           placeholderTextColor={colors.Gray}
@@ -225,7 +232,9 @@ export default function Register({navigation}: NavigationProps) {
         />
         <TextInput
           style={styles.Input}
-          onChangeText={text => handleTextChange(text, 'CEP')}
+          onChangeText={text =>
+            handleTextChange(text, 'CEP', () => setCEP(text))
+          }
           placeholder="CEP"
           value={CEP}
           placeholderTextColor={colors.Gray}
@@ -233,7 +242,9 @@ export default function Register({navigation}: NavigationProps) {
         />
         <TextInput
           style={styles.Input}
-          onChangeText={text => handleTextChange(text, 'email')}
+          onChangeText={text =>
+            handleTextChange(text, 'email', () => setEmail(text))
+          }
           placeholder="E-mail"
           value={email}
           placeholderTextColor={colors.Gray}
@@ -241,7 +252,9 @@ export default function Register({navigation}: NavigationProps) {
         />
         <TextInput
           style={styles.Input}
-          onChangeText={text => handleTextChange(text, 'password')}
+          onChangeText={text =>
+            handleTextChange(text, 'password', () => setPassword(text))
+          }
           placeholder="Senha"
           value={password}
           placeholderTextColor={colors.Gray}
