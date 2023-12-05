@@ -28,6 +28,16 @@ export default function CoffeeMenu({navigation}: NavigationProps) {
     'Café de origem italiana. Feito com café expresso e ' +
     'leite vaporizado, com uma quantidade generosa de espuma de leite no topo.';
 
+  const contentMocha =
+    'Essencialmente, "mocha" significa um tipo de café feito ' +
+    'de um grão de café específico originalmente cultivado apenas em Mocha, Iêmen. ' +
+    'Uma mistura de café e calda de chocolate.';
+
+  const contentIrish =
+    'É uma das bebidas mais tradicionais da Irlanda. ' +
+    'Foi inventada depois da Segunda Guerra Mundial e é um café para os fortes. ' +
+    'A receita leva, além do café, um shot de uísque e creme de leite fresco batido.';
+
   return (
     <View style={styles.CoffeMenuView}>
       <ScrollView contentContainerStyle={{padding: 20}}>
@@ -36,24 +46,42 @@ export default function CoffeeMenu({navigation}: NavigationProps) {
           title={'Capuccino'}
           content={contentCapuccino}
           onPress={() => Alert.alert('Adicionado ao carrinho!')}
+          price={'R$ 8,00'}
         />
         <CardMenu
           source={require('../../images/expresso.png')}
           title={'Expresso'}
           content={contentExpresso}
           onPress={() => Alert.alert('Adicionado ao carrinho!')}
+          price={'R$ 6,50'}
         />
         <CardMenu
           source={require('../../images/latte.png')}
           title={'Latte'}
           content={contentLatte}
           onPress={() => Alert.alert('Adicionado ao carrinho!')}
+          price={'R$ 9,00'}
         />
         <CardMenu
           source={require('../../images/macchiato.png')}
           title={'Latte Macchiato'}
           content={contentMacchiato}
           onPress={() => Alert.alert('Adicionado ao carrinho!')}
+          price={'R$ 12,00'}
+        />
+        <CardMenu
+          source={require('../../images/irish.png')}
+          title={'Irlandês'}
+          content={contentIrish}
+          onPress={() => Alert.alert('Adicionado ao carrinho!')}
+          price={'R$ 15,00'}
+        />
+        <CardMenu
+          source={require('../../images/mocha.png')}
+          title={'Mocha'}
+          content={contentMocha}
+          onPress={() => Alert.alert('Adicionado ao carrinho!')}
+          price={'R$ 13,50'}
         />
       </ScrollView>
     </View>
