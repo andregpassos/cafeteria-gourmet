@@ -55,20 +55,6 @@ export default function Register({navigation}: NavigationProps) {
     register('password');
   }, [register]);
 
-  const alertCreateAccount = (data: FormProps) => {
-    Alert.alert(
-      'Conta Criada!',
-      'Dados da conta\n\n' +
-        `Nome: ${data.name}\n` +
-        `Apelido: ${data.nickname}\n` +
-        `CPF: ${data.CPF}\n` +
-        `Telefone: ${data.phone}\n` +
-        `Whatsapp: ${data.whatsapp}\n` +
-        `CEP: ${data.CEP}\n` +
-        `E-mail: ${data.email}\n`,
-    );
-  };
-
   const handleTextChange = (
     text: string,
     typeValue: string,
@@ -92,7 +78,6 @@ export default function Register({navigation}: NavigationProps) {
 
     if (shouldStopSubmit) return;
 
-    alertCreateAccount(data);
     CREATE(data);
     setName('');
     setNickname('');

@@ -12,7 +12,9 @@ export default function Login({navigation}: NavigationProps) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const navigateHome = () => navigation.navigate('Home');
+  const navigateHome = (name: string) =>
+    navigation.navigate('Home', {userName: name});
+
   const navigateRegister = () => navigation.navigate('Register');
 
   function clearInputs() {
@@ -45,7 +47,7 @@ export default function Login({navigation}: NavigationProps) {
 
       console.log('user = ', user);
 
-      if (user!.password === password) navigateHome();
+      if (user!.password === password) navigateHome(user!.name);
       else Alert.alert('Erro', 'E-mail ou senha incorretos!');
 
       setEmail('');

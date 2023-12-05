@@ -11,6 +11,7 @@ import {
 } from 'firebase/firestore';
 import {db} from './FirebaseConfig';
 import {FormProps} from '../scenes/register/Register';
+import {Alert} from 'react-native';
 
 export function CREATE(dataObject: FormProps) {
   READ('email', '==', dataObject.email)
@@ -23,14 +24,20 @@ export function CREATE(dataObject: FormProps) {
         })
           .then(() => {
             console.log('SQL operation successful!');
+            Alert.alert('Conta criada com sucesso');
           })
           .catch(e => {
             console.error(e);
+            Alert.alert('Erro', 'Erro do Firebase');
           });
+      } else {
+        Alert.alert('Erro', 'Ja existe uma conta com esse e-mail');
       }
     })
-    .catch(e => console.error(e));
-
+    .catch(e => {
+      console.error(e);
+      Alert.alert('Erro', 'Erro do Firebase');
+    });
   //cria uma tabela com id especifico
   /* setDoc(doc(db, 'users', '1'), {
       name: 'Lalalala',

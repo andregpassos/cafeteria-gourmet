@@ -7,11 +7,10 @@ import {DefaultButton, LightButton} from '../../components/Button';
 
 type NavigationProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
-const welcomeText = 'Olá, Sicrano! Seja bem-vindo à Cafeteria Gourmet!';
-
-export default function Home({navigation}: NavigationProps) {
+export default function Home({navigation, route}: NavigationProps) {
   const navigateCoffeeMenu = () => navigation.navigate('CoffeeMenu');
   const navigateContact = () => navigation.navigate('Contact');
+  const welcomeText = `Olá, ${route.params.userName}! Seja bem-vindo à Cafeteria Gourmet!`;
 
   return (
     <View style={{...styles.View, justifyContent: 'space-between'}}>
